@@ -47,12 +47,12 @@ public class VKService {
         var vaa = getVkAndActor(token);
         var vk = vaa.vk;
         var actor = vaa.actor;
-
-        return vk.users().get(actor)
+        var result = vk.users().get(actor)
                 .fields(Fields.FIRST_NAME_NOM, Fields.FIRST_NAME_NOM, Fields.NICKNAME)
                 .userIds(userId)
                 .lang(Lang.RU)
-                .execute()
+                .execute();
+        return result
                 .get(0);
     }
 
