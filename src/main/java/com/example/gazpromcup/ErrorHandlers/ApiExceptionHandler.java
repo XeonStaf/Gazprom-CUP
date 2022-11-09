@@ -8,18 +8,20 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
+
 import java.util.Arrays;
 
-@ControllerAdvice
+@RestControllerAdvice
 @Slf4j
 public class ApiExceptionHandler {
-    @ExceptionHandler
+    @ExceptionHandler(ApiException.class)
     @ResponseBody
     public ResponseEntity<AppError> catchVkApiException(ApiException e) {
         log.error(e.getLocalizedMessage());
         log.error(Arrays.toString(e.getStackTrace()));
         return ResponseEntity
-                .internalServerError()
+                .status(502)
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(AppError.builder()
                         .errorMessage(e.getLocalizedMessage())
