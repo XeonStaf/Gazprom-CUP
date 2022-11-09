@@ -52,6 +52,10 @@ public class VKService {
                 .userIds(userId)
                 .lang(Lang.RU)
                 .execute();
+
+        if (result.size() == 0)
+            throw new ApiException("User with this username/user_id doesn't exists.");
+
         return result
                 .get(0);
     }

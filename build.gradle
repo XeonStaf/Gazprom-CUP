@@ -20,6 +20,7 @@ dependencies {
     implementation 'com.vk.api:sdk:1.0.14'
     compileOnly 'org.projectlombok:lombok:1.18.22'
     annotationProcessor 'org.projectlombok:lombok:1.18.22'
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.6.11'
 }
 
 configurations {
