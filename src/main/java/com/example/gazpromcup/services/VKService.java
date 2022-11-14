@@ -10,6 +10,7 @@ import com.vk.api.sdk.httpclient.HttpTransportClient;
 import com.vk.api.sdk.objects.users.Fields;
 import com.vk.api.sdk.objects.users.responses.GetResponse;
 import lombok.Getter;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 
@@ -17,8 +18,7 @@ import org.springframework.stereotype.Service;
 public class VKService {
 
     @Getter
-    static
-    class VkAndActor {
+    static class VkAndActor {
         private final VkApiClient vk;
         private final ServiceActor actor;
 
@@ -43,7 +43,8 @@ public class VKService {
      * @param token  - токен
      * @return Информация о пользователе: имя, фамилия, отчество, user_id
      */
-    public static GetResponse getUserInfo(String userId, String token) throws ClientException, ApiException {
+    @Cacheable(cacheNames = "user-info", key = "#userId")
+    public GetResponse getUserInfo(String userId, String token) throws ClientException, ApiException {
         var vaa = getVkAndActor(token);
         var vk = vaa.vk;
         var actor = vaa.actor;
@@ -69,7 +70,8 @@ public class VKService {
      * @return True - если пользотваель состоит в группе <br>
      * False - иначе
      */
-    public static boolean isGroupMember(Integer userId, String groupId, String token) throws ClientException, ApiException {
+    @Cacheable(cacheNames = "is-group-member", key = "{#userId, #groupId}")
+    public boolean isGroupMember(Integer userId, String groupId, String token) throws ClientException, ApiException {
         var vaa = getVkAndActor(token);
         var vk = vaa.vk;
         var actor = vaa.actor;

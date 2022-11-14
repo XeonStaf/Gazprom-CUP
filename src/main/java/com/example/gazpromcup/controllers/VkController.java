@@ -29,8 +29,8 @@ public class VkController {
     public ResponseEntity<?> isUserMemberOfGroup (@RequestBody BodyIsUserMemberOfGroup data,
                                                   @RequestHeader("vk_service_token") String token)
             throws ClientException, ApiException {
-        var user = VKService.getUserInfo(data.getUser_id(), token);
-        var member = VKService.isGroupMember(user.getId(), data.getGroup_id(), token);
+        var user = new VKService().getUserInfo(data.getUser_id(), token);
+        var member = new VKService().isGroupMember(user.getId(), data.getGroup_id(), token);
 
         var result = ResponseIsUserMemberOfGroup.builder()
                 .last_name(user.getLastName())
