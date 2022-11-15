@@ -6,7 +6,7 @@
 
 # Gazprom CUP Java task
 
-[Swagger Scheme](127.0.0.1:8080/swagger-ui/index.html#)
+Swagger Scheme avallaible on __127.0.0.1:8080/swagger-ui/index.html__
 
 
 In order to build docker image:
