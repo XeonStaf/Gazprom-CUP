@@ -1,0 +1,8 @@
+{
+  "properties": [
+    {
+      "name": "vk-token",
+      "type": "java.lang.String",
+      "description": "VK Token for tests. "
+  }
+] }
